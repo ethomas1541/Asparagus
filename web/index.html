@@ -2,12 +2,13 @@
 <html>
     <head>
         <link rel="stylesheet" href="styles.css">
+        <script src="script.js"></script>
     </head>
     <body>
         <nav>
             <h1>Asparagus</h1>
         </nav>
-        <ul>
+        <ul id="show_list">
             <li class="show" id = "sample">
                 <h2>Show Name</h2>
                 <div class = "showbox">
@@ -59,5 +60,8 @@
                 </div>
             </li>
         </ul>
+        <div class="center">
+            <button class="add-show" onclick="add_show()">+</button>
+        </div>
     </body>
 </html>
