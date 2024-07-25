@@ -17,9 +17,13 @@ function add_show(){
             <div class="show-description" contenteditable="true">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ab hic, sunt non quaerat eveniet voluptate asperiores doloribus modi veritatis temporibus inventore officiis facere sed aut facilis aspernatur. Est, at. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur at est, architecto repellendus repellat maiores odit. Harum necessitatibus quia sunt ex esse laboriosam, veniam deserunt. Adipisci perspiciatis suscipit qui vitae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minima ea numquam placeat. Necessitatibus, eos pariatur beatae explicabo suscipit architecto commodi dolorem odit, error temporibus, quidem ab corrupti consequuntur repellat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facere mollitia fuga illo repellendus voluptate ratione alias cum aliquid quo reiciendis, consequatur debitis odio excepturi, est asperiores laborum non architecto?</p>
             </div>
-            <div class="progbar">
-                <p>###/###</p>
-                <div class="meter"></div>
+            <div class = "progbar">
+                        
+                        <p id="curent-ep">####</p>
+                        <p id="divider">/</p>
+                        <p id="total-ep">####</p>
+                        
+                        <div class = "meter"></div>
             </div>
             <div class="ratings">
                 <div class="star-bg">

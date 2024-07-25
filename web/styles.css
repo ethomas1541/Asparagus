@@ -78,9 +78,23 @@ ul{
 .progbar p{
     margin: 0;
     display: inline-block;
-    width: 10%;
-    text-align: right;
+    width: fit-content;
     color: #666;
+    margin-left: 5%;  
+}
+
+#current-ep {
+    text-align: right;
+}
+
+#divider {
+    text-align: center;
+    margin-left: 0%;
+}
+
+#total-ep {
+    text-align: left;
+    margin-left: 0%;
 }
 
 .meter{
