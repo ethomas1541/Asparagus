@@ -142,11 +142,23 @@ ul{
     transform: translate(135px, -28px);
 }
 
+/* Replaced with input
 .number-bg p{
     margin: 0;
     font-weight: bold;
     transform: translate(9px, 4px);
     color: #fc0;
+}
+*/
+.number-bg input{
+    margin: 0;
+    font-weight: bold;
+    transform: translate(7px, 4px);
+    color: #fc0;
+    font-size: 16px;
+    border: none;
+    background: transparent;
+    width: 40px;
 }
 
 .star-darkgray{
@@ -174,12 +186,12 @@ ul{
 }
 
 .center {
+    /* Used to center add-show button */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
-    /*border: 3px solid green;*/
-  }
+}
 
 .add-show {
     background-color: rgb(14, 145, 53);

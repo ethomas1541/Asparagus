@@ -33,7 +33,8 @@ function add_show(){
                     <img src="img/starframe.png">
                 </div>
                 <div class="number-bg">
-                    <p>2.5</p>
+                    <input id="rating" type="number" placeholder="#.#"
+                                min="0.0" max="5.0" step="0.5">
                 </div>
             </div>
         </div>
