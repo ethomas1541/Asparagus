@@ -19,7 +19,8 @@ function add_show(){
             </div>
             <div class = "progbar">
                         
-                        <p id="curent-ep">####</p>
+                        <input id="current-ep" type="number" dir="rtl" 
+                            min="0" maxlength="4" placeholder="####">
                         <p id="divider">/</p>
                         <p id="total-ep">####</p>
                         

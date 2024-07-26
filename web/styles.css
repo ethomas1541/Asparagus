@@ -85,6 +85,20 @@ ul{
 
 #current-ep {
     text-align: right;
+    min-width: 52px; 
+    width: 5%;
+    margin-left: 2.5%;
+    
+    /* Same as rest in class progbar */
+    margin: 0;
+    display: inline-block;
+    color: #666;
+
+    /* Used to match appearance */
+    background-color:#333;
+    font-size: 16px;
+    border: none;
+    
 }
 
 #divider {
