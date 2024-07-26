@@ -9,7 +9,7 @@ function add_show(){
 
     // Fill in show card
     show_card.innerHTML = innerHTML = `
-        <h2>Show Name</h2>
+        <h2 contenteditable="true">Show Name</h2>
         <div class="showbox">
             <div class="img-frame">
                 <img src="img/sample.png">
