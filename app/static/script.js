@@ -85,3 +85,12 @@ function searchShows() {
         show.style.display = show.querySelector('h2').textContent.toLowerCase().includes(searchTerm) ? 'block' : 'none';
     });
 }
+
+function clearSearch() {
+    document.getElementById('searchBar').value = '';
+    const shows = document.querySelectorAll('#show_list .show');
+    shows.forEach(show => {
+        show.style.display = 'block';
+        show.style.order = 0;
+    });
+}
