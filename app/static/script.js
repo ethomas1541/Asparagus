@@ -36,7 +36,7 @@ function add_show() {
                     </div>
                 </div>
                 <div class="number-bg">
-                    <input class = "rating" type="number" placeholder="#.#" min="0.0" max="5.0" step="0.5">
+                    <input class = "rating" type="number" placeholder="--" min="0.0" max="5.0" step="0.5">
                 </div>
             </div>
         </div>
