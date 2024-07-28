@@ -1,49 +1,72 @@
-html{
+html {
     background-color: #444;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
+body {
     margin: 0;
 }
 
-nav{
+nav {
     background: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content horizontally */
 }
 
-nav h1{
+nav h1 {
     margin: 0;
     color: #fff;
     padding: 10px 0 10px 60px;
     margin-top: -1px;
 }
 
-ul{
-    padding-left: 80px;
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the items horizontally */
+    margin: 10px 0;
 }
 
-.show{
+.search-container input[type="text"] {
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.search-container button {
+    padding: 5px;
+    margin-right: 5px;
+}
+
+ul {
+    padding-left: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.show {
     margin-top: 30px;
     list-style-type: none;
+    order: 0; /* Default order value */
 }
 
-.show-description p{
+.show-description p {
     font-size: 12px;
     color: #666;
 }
 
-.show h2{
+.show h2 {
     margin-bottom: 10px;
 }
 
-.showbox{
+.showbox {
     background: #333;
     padding: 10px 10px 7px 10px;
     width: 95%;
     border-radius: 15px;
 }
 
-.img-frame{
+.img-frame {
     width: 125px;
     height: 175px;
     display: inline-block;
@@ -51,13 +74,13 @@ ul{
     border-radius: 10px;
 }
 
-.img-frame img{
+.img-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.show-description{
+.show-description {
     display: inline-block;
     height: 130px;
     width: 60%;
@@ -66,26 +89,26 @@ ul{
     overflow-y: auto;
 }
 
-.show-description p{
+.show-description p {
     margin: 0;
 }
 
-.progbar{
+.progbar {
     display: inline-block;
     width: 80%;
 }
 
-.progbar p{
+.progbar p {
     margin: 0;
     display: inline-block;
     width: fit-content;
     color: #666;
-    margin-left: 5%;  
+    margin-left: 5%;
 }
 
 #current-ep {
     text-align: right;
-    min-width: 52px; 
+    min-width: 52px;
     width: 5%;
     margin-left: 2.5%;
     
@@ -95,10 +118,9 @@ ul{
     color: #666;
 
     /* Used to match appearance */
-    background-color:#333;
+    background-color: #333;
     font-size: 16px;
     border: none;
-    
 }
 
 #divider {
@@ -111,7 +133,7 @@ ul{
     margin-left: 0%;
 }
 
-.meter{
+.meter {
     width: 70%;
     height: 5px;
     background: linear-gradient(0.25turn, #000, #060, #0f0);
@@ -120,13 +142,13 @@ ul{
     margin: 0 0 1px 30px
 }
 
-.ratings{
+.ratings {
     display: inline-block;
     width: 125px;
     height: 35px;
 }
 
-.star-bg{
+.star-bg {
     border-radius: 20px;
     width: 125px;
     height: 80%;
@@ -134,7 +156,7 @@ ul{
     margin: 3px auto 0 auto
 }
 
-.number-bg{
+.number-bg {
     border-radius: 20px;
     width: 40px;
     height: 80%;
@@ -150,7 +172,7 @@ ul{
     color: #fc0;
 }
 */
-.number-bg input{
+.number-bg input {
     margin: 0;
     font-weight: bold;
     transform: translate(7px, 4px);
@@ -161,7 +183,7 @@ ul{
     width: 40px;
 }
 
-.star-darkgray{
+.star-darkgray {
     background-color: #222;
     width: 102px;
     margin-left: 12px;
@@ -169,7 +191,7 @@ ul{
     transform: translate(0, 4px);
 }
 
-.star-yellow{
+.star-yellow {
     background-color: #fc0;
     width: 50px; /* This here is what you change to change a show's rating score */
                  /* Multiply a number between 0.0 and 5.0 by 20.4                */
@@ -178,7 +200,7 @@ ul{
     transform: translate(0, -14px);
 }
 
-.star-bg img{
+.star-bg img {
     position: absolute;
     width: 103px;
     height: 18px;
@@ -196,9 +218,8 @@ ul{
 .add-show {
     background-color: rgb(14, 145, 53);
     border: none;
-    color:#fff;
+    color: #fff;
     text-align: center; 
     font-size: 24px;
     border-radius: 50%;
-
 }

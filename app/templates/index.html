@@ -7,9 +7,11 @@
 <body>
     <nav>
         <h1>Asparagus</h1>
-        <input type="text" id="searchBar" placeholder="Search for shows...">
-        <button onclick="searchShows()">Search</button>
-        <button onclick="clearSearch()">Clear</button> 
+        <div class="search-container">
+            <input type="text" id="searchBar" placeholder="Search for shows...">
+            <button onclick="searchShows()">Search</button>
+            <button onclick="clearSearch()">Clear</button>
+        </div>
     </nav>
     <ul id="show_list">
         <li class="show" id="sample">
