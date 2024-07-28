@@ -6,6 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <nav>
         <h1>Asparagus</h1>
         <div class="search-container">
@@ -27,7 +28,7 @@
                 <div class="progbar">
                     <input class="current-ep" type="number" dir="rtl" min="0" maxlength="4" placeholder="####">
                     <p id="divider">/</p>
-                    <p id="total-ep">####</p>
+                    <p id="total-ep">22</p>
                     <div class="meter"></div>
                 </div>
                 <div class="ratings">
@@ -74,6 +75,12 @@
             //console.log($(this).attr("id")[1])
             $(this).parent().parent().parent().find(".rating").val($(this).attr("id")[1])
             $(".rating").trigger("change");
+        })
+        $("#show_list").on("change", ".current-ep", function(){
+            let cur_ep = Number($(this).val());
+            let max_ep = 22; // temporary placeholder
+            let width = Math.floor((cur_ep * window.innerWidth * 0.7 / max_ep));
+            $(this).parent().find(".meter").width(width);
         })
     </script>
 </body>
