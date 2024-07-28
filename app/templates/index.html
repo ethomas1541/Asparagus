@@ -1,79 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="/static/styles.css">
-        <script src="/static/script.js"></script>
-    </head>
-    <body>
-        <nav>
-            <h1>Asparagus</h1>
-        </nav>
-        <ul id="show_list">
-            <li class="show" id = "sample">
-                <h2 contenteditable="true">Show Name</h2>
-                <div class = "showbox">
-                    <div class="img-frame">
-                        <img src="static/img/sample.png">
+<head>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/script.js"></script>
+</head>
+<body>
+    <nav>
+        <h1>Asparagus</h1>
+        <input type="text" id="searchBar" placeholder="Search for shows...">
+        <button onclick="searchShows()">Search</button>
+    </nav>
+    <ul id="show_list">
+        <li class="show" id="sample">
+            <h2 contenteditable="true">Show Name</h2>
+            <div class="showbox">
+                <div class="img-frame">
+                    <img src="static/img/sample.png">
+                </div>
+                <div class="show-description" contenteditable="true">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ab hic, sunt non quaerat eveniet voluptate asperiores doloribus modi veritatis temporibus inventore officiis facere sed aut facilis aspernatur. Est, at. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur at est, architecto repellendus repellat maiores odit. Harum necessitatibus quia sunt ex esse laboriosam, veniam deserunt. Adipisci perspiciatis suscipit qui vitae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minima ea numquam placeat. Necessitatibus, eos pariatur beatae explicabo suscipit architecto commodi dolorem odit, error temporibus, quidem ab corrupti consequuntur repellat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facere mollitia fuga illo repellendus voluptate ratione alias cum aliquid quo reiciendis, consequatur debitis odio excepturi, est asperiores laborum non architecto?</p>
+                </div>
+                <div class="progbar">
+                    <input id="current-ep" type="number" dir="rtl" min="0" maxlength="4" placeholder="####">
+                    <p id="divider">/</p>
+                    <p id="total-ep">####</p>
+                    <div class="meter"></div>
+                </div>
+                <div class="ratings">
+                    <div class="star-bg">
+                        <div class="star-darkgray"></div>
+                        <div class="star-yellow"></div>
+                        <img src="static/img/starframe.png">
                     </div>
-                    <div class = "show-description" contenteditable="true">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ab hic, sunt non quaerat eveniet voluptate asperiores doloribus modi veritatis temporibus inventore officiis facere sed aut facilis aspernatur. Est, at. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur at est, architecto repellendus repellat maiores odit. Harum necessitatibus quia sunt ex esse laboriosam, veniam deserunt. Adipisci perspiciatis suscipit qui vitae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minima ea numquam placeat. Necessitatibus, eos pariatur beatae explicabo suscipit architecto commodi dolorem odit, error temporibus, quidem ab corrupti consequuntur repellat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facere mollitia fuga illo repellendus voluptate ratione alias cum aliquid quo reiciendis, consequatur debitis odio excepturi, est asperiores laborum non architecto?</p>
-                    </div>
-                    <div class = "progbar">
-                        
-                        <input id="current-ep" type="number" dir="rtl" 
-                            min="0" maxlength="4" placeholder="####">
-                        <p id="divider">/</p>
-                        <p id="total-ep">####</p>
-                        
-                        <div class = "meter"></div>
-                    </div>
-                    <div class = "ratings">
-                        <div class = "star-bg">
-                            <div class = "star-darkgray"></div>
-                            <div class = "star-yellow"></div>
-                            <img src="static/img/starframe.png">
-                        </div>
-                        <div class = "number-bg">
-                            <input id="rating" type="number" placeholder="#.#"
-                                min="0.0" max="5.0" step="0.5">
-                        </div>
+                    <div class="number-bg">
+                        <input id="rating" type="number" placeholder="#.#" min="0.0" max="5.0" step="0.5">
                     </div>
                 </div>
-            </li>
-            <li class="show" id = "sample">
-                <h2 contenteditable="true">Show Name</h2>
-                <div class = "showbox">
-                    <div class="img-frame">
-                        <img src="static/img/sample.png">
-                    </div>
-                    <div class = "show-description" contenteditable="true">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ab hic, sunt non quaerat eveniet voluptate asperiores doloribus modi veritatis temporibus inventore officiis facere sed aut facilis aspernatur. Est, at. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur at est, architecto repellendus repellat maiores odit. Harum necessitatibus quia sunt ex esse laboriosam, veniam deserunt. Adipisci perspiciatis suscipit qui vitae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minima ea numquam placeat. Necessitatibus, eos pariatur beatae explicabo suscipit architecto commodi dolorem odit, error temporibus, quidem ab corrupti consequuntur repellat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facere mollitia fuga illo repellendus voluptate ratione alias cum aliquid quo reiciendis, consequatur debitis odio excepturi, est asperiores laborum non architecto?</p>
-                    </div>
-                    <div class = "progbar">
-                        
-                        <input id="current-ep" type="number" dir="rtl" 
-                            min="0" maxlength="4" placeholder="####">
-                        <p id="divider">/</p>
-                        <p id="total-ep">####</p>
-                        
-                        <div class = "meter"></div>
-                    </div>
-                    <div class = "ratings">
-                        <div class = "star-bg">
-                            <div class = "star-darkgray"></div>
-                            <div class = "star-yellow"></div>
-                            <img src="static/img/starframe.png">
-                        </div>
-                        <div class = "number-bg">
-                            <input id="rating" type="number" placeholder="#.#"
-                                min="0.0" max="5.0" step="0.5">
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <div class="center">
-            <button class="add-show" onclick="add_show()">+</button>
-        </div>
-    </body>
+            </div>
+        </li>
+        <!-- Repeat for other shows -->
+    </ul>
+    <div class="center">
+        <button class="add-show" onclick="add_show()">+</button>
+    </div>
+</body>
 </html>

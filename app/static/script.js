@@ -38,3 +38,16 @@ function add_show() {
     // Append element to end of list
     document.getElementById("show_list").appendChild(show_card);
 }
+
+function searchShows() {
+    const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+    const shows = document.querySelectorAll('#show_list .show');
+    shows.forEach(show => {
+        const showName = show.querySelector('h2').textContent.toLowerCase();
+        if (showName.includes(searchTerm)) {
+            show.style.display = 'block';
+        } else {
+            show.style.display = 'none';
+        }
+    });
+}
