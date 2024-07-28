@@ -78,9 +78,37 @@ ul{
 .progbar p{
     margin: 0;
     display: inline-block;
-    width: 10%;
-    text-align: right;
+    width: fit-content;
     color: #666;
+    margin-left: 5%;  
+}
+
+#current-ep {
+    text-align: right;
+    min-width: 52px; 
+    width: 5%;
+    margin-left: 2.5%;
+    
+    /* Same as rest in class progbar */
+    margin: 0;
+    display: inline-block;
+    color: #666;
+
+    /* Used to match appearance */
+    background-color:#333;
+    font-size: 16px;
+    border: none;
+    
+}
+
+#divider {
+    text-align: center;
+    margin-left: 0%;
+}
+
+#total-ep {
+    text-align: left;
+    margin-left: 0%;
 }
 
 .meter{
@@ -114,11 +142,23 @@ ul{
     transform: translate(135px, -28px);
 }
 
+/* Replaced with input
 .number-bg p{
     margin: 0;
     font-weight: bold;
     transform: translate(9px, 4px);
     color: #fc0;
+}
+*/
+.number-bg input{
+    margin: 0;
+    font-weight: bold;
+    transform: translate(7px, 4px);
+    color: #fc0;
+    font-size: 16px;
+    border: none;
+    background: transparent;
+    width: 40px;
 }
 
 .star-darkgray{
@@ -143,4 +183,22 @@ ul{
     width: 103px;
     height: 18px;
     transform: translate(11px, -32px);
+}
+
+.center {
+    /* Used to center add-show button */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.add-show {
+    background-color: rgb(14, 145, 53);
+    border: none;
+    color:#fff;
+    text-align: center; 
+    font-size: 24px;
+    border-radius: 50%;
+
 }
