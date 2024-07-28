@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="/static/styles.css">
     <script src="/static/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <nav>
@@ -15,16 +16,16 @@
     </nav>
     <ul id="show_list">
         <li class="show" id="sample">
-            <h2 contenteditable="true">Show Name</h2>
+            <h2 contenteditable="true" spellcheck="false">Show Name</h2>
             <div class="showbox">
                 <div class="img-frame">
                     <img src="static/img/sample.png">
                 </div>
                 <div class="show-description" contenteditable="true">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ab hic, sunt non quaerat eveniet voluptate asperiores doloribus modi veritatis temporibus inventore officiis facere sed aut facilis aspernatur. Est, at. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur at est, architecto repellendus repellat maiores odit. Harum necessitatibus quia sunt ex esse laboriosam, veniam deserunt. Adipisci perspiciatis suscipit qui vitae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minima ea numquam placeat. Necessitatibus, eos pariatur beatae explicabo suscipit architecto commodi dolorem odit, error temporibus, quidem ab corrupti consequuntur repellat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facere mollitia fuga illo repellendus voluptate ratione alias cum aliquid quo reiciendis, consequatur debitis odio excepturi, est asperiores laborum non architecto?</p>
+                    <p spellcheck="false">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ab hic, sunt non quaerat eveniet voluptate asperiores doloribus modi veritatis temporibus inventore officiis facere sed aut facilis aspernatur. Est, at. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur at est, architecto repellendus repellat maiores odit. Harum necessitatibus quia sunt ex esse laboriosam, veniam deserunt. Adipisci perspiciatis suscipit qui vitae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minima ea numquam placeat. Necessitatibus, eos pariatur beatae explicabo suscipit architecto commodi dolorem odit, error temporibus, quidem ab corrupti consequuntur repellat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facere mollitia fuga illo repellendus voluptate ratione alias cum aliquid quo reiciendis, consequatur debitis odio excepturi, est asperiores laborum non architecto?</p>
                 </div>
                 <div class="progbar">
-                    <input id="current-ep" type="number" dir="rtl" min="0" maxlength="4" placeholder="####">
+                    <input class="current-ep" type="number" dir="rtl" min="0" maxlength="4" placeholder="####">
                     <p id="divider">/</p>
                     <p id="total-ep">####</p>
                     <div class="meter"></div>
@@ -34,9 +35,16 @@
                         <div class="star-darkgray"></div>
                         <div class="star-yellow"></div>
                         <img src="static/img/starframe.png">
+                        <div class = "star-buttons">
+                            <button id = "b1star"></button>
+                            <button id = "b2star"></button>
+                            <button id = "b3star"></button>
+                            <button id = "b4star"></button>
+                            <button id = "b5star"></button>
+                        </div>
                     </div>
                     <div class="number-bg">
-                        <input id="rating" type="number" placeholder="#.#" min="0.0" max="5.0" step="0.5">
+                        <input class="rating" type="number" placeholder="--" min="0.0" max="5.0" step="0.5">
                     </div>
                 </div>
             </div>
@@ -46,5 +54,27 @@
     <div class="center">
         <button class="add-show" onclick="add_show()">+</button>
     </div>
+    <script>
+        $("#show_list").on("change", ".rating", function(){
+            //console.log("CHANGED");
+            //console.log($(this).parent().parent().find(".star-yellow"));
+            // This is horribly complicated for what it does, but it works.
+            let raw_len = Number($(this).val())
+            let width = 17.5 * raw_len + 3.4 * (Math.floor(raw_len) % 6);
+            if(width > 102){
+                width = 102;
+            }else if(width == 20.9){
+                width = 20;
+            }else if(width == 41.8){
+                width = 41;
+            }
+            $(this).parent().parent().find(".star-yellow").width(width);
+        })
+        $("#show_list").on("click", "button", function(){
+            //console.log($(this).attr("id")[1])
+            $(this).parent().parent().parent().find(".rating").val($(this).attr("id")[1])
+            $(".rating").trigger("change");
+        })
+    </script>
 </body>
 </html>

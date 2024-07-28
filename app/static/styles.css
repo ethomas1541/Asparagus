@@ -1,6 +1,7 @@
 html {
     background-color: #444;
     font-family: Arial, Helvetica, sans-serif;
+    caret-color: transparent;
 }
 
 body {
@@ -31,6 +32,7 @@ nav h1 {
 .search-container input[type="text"] {
     padding: 5px;
     margin-right: 5px;
+    caret-color: #000;
 }
 
 .search-container button {
@@ -53,6 +55,7 @@ ul {
 .show-description p {
     font-size: 12px;
     color: #666;
+    caret-color: auto;
 }
 
 .show h2 {
@@ -106,7 +109,7 @@ ul {
     margin-left: 5%;
 }
 
-#current-ep {
+.current-ep {
     text-align: right;
     min-width: 52px;
     width: 5%;
@@ -116,6 +119,7 @@ ul {
     margin: 0;
     display: inline-block;
     color: #666;
+    caret-color: auto;
 
     /* Used to match appearance */
     background-color: #333;
@@ -175,12 +179,13 @@ ul {
 .number-bg input {
     margin: 0;
     font-weight: bold;
-    transform: translate(7px, 4px);
+    transform: translate(5px, 4px);
     color: #fc0;
     font-size: 16px;
     border: none;
     background: transparent;
     width: 40px;
+    text-align: center;
 }
 
 .star-darkgray {
@@ -193,8 +198,7 @@ ul {
 
 .star-yellow {
     background-color: #fc0;
-    width: 50px; /* This here is what you change to change a show's rating score */
-                 /* Multiply a number between 0.0 and 5.0 by 20.4                */
+    width: 0;
     margin-left: 12px;
     height: 18px;
     transform: translate(0, -14px);
@@ -222,4 +226,13 @@ ul {
     text-align: center; 
     font-size: 24px;
     border-radius: 50%;
+}
+
+.star-buttons button{
+    background-color: #0000;
+    border: transparent;
+    width: 17.5px;
+    height: 17.5px;
+    transform: translate(10px, -31px);
+    margin-right: 0;
 }
