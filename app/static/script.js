@@ -20,6 +20,7 @@ function add_show() {
                 <input class="current-ep" type="number" dir="rtl" min="0" maxlength="4" placeholder="####">
                 <p id="divider">/</p>
                 <p id="total-ep">22</p>
+                <div class="meter-bg"></div>
                 <div class="meter"></div>
             </div>
             <div class="ratings">

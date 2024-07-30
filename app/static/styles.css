@@ -137,12 +137,21 @@ ul {
     margin-left: 0%;
 }
 
+.meter-bg {
+    width: 70%;
+    height: 5px;
+    background-color: #282828;
+    border-radius: 2px;
+    margin: 0 0 1px 30px
+}
+
 .meter {
     width: 70%;
     height: 5px;
     background: linear-gradient(0.25turn, #000, #060, #0f0);
     display: inline-block;
     border-radius: 2px;
+    transform: translate(0, -15px);
     margin: 0 0 1px 30px
 }
 

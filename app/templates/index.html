@@ -29,6 +29,7 @@
                     <input class="current-ep" type="number" dir="rtl" min="0" maxlength="4" placeholder="####">
                     <p id="divider">/</p>
                     <p id="total-ep">22</p>
+                    <div class="meter-bg"></div>
                     <div class="meter"></div>
                 </div>
                 <div class="ratings">
@@ -79,7 +80,7 @@
         $("#show_list").on("change", ".current-ep", function(){
             let cur_ep = Number($(this).val());
             let max_ep = 22; // temporary placeholder
-            let width = Math.floor((cur_ep * window.innerWidth * 0.7 / max_ep));
+            let width = Math.floor((cur_ep * $(this).parent().width() * 0.7 / max_ep));
             $(this).parent().find(".meter").width(width);
         })
     </script>
