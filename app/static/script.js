@@ -6,7 +6,7 @@ function add_show() {
     show_card.className = "show";
     show_card.id = "show card";
 
-    // Fill in show card
+    // Fill in show card with html elements
     show_card.innerHTML = `
         <h2 contenteditable="true" spellcheck="false">Show Name</h2>
         <div class="showbox">
@@ -43,8 +43,9 @@ function add_show() {
         </div>
     `;
 
-    // Append element to end of list
-    document.getElementById("show_list").appendChild(show_card);
+    // Add show card to top of list
+    const list = document.getElementById("show_list");
+    list.insertBefore(show_card, list.children[0]);
 }
 
 

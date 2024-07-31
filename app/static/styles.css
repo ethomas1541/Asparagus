@@ -220,12 +220,11 @@ ul {
     transform: translate(11px, -32px);
 }
 
-.center {
-    /* Used to center add-show button */
+.add-show-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
+    margin: 0.5%;   
 }
 
 .add-show {
@@ -233,8 +232,8 @@ ul {
     border: none;
     color: #fff;
     text-align: center; 
-    font-size: 24px;
-    border-radius: 50%;
+    font-size: 12px;
+    border-radius: 5%;
 }
 
 .star-buttons button{

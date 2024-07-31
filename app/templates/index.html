@@ -15,6 +15,11 @@
             <button onclick="clearSearch()">Clear</button>
         </div>
     </nav>
+
+    <div class="add-show-container">
+        <button class="add-show" onclick="add_show()">Add New Show</button>
+    </div>
+
     <ul id="show_list">
         <li class="show" id="sample">
             <h2 contenteditable="true" spellcheck="false">Show Name</h2>
@@ -53,9 +58,7 @@
         </li>
         <!-- Repeat for other shows -->
     </ul>
-    <div class="center">
-        <button class="add-show" onclick="add_show()">+</button>
-    </div>
+    
     <script>
         $("#show_list").on("change", ".rating", function(){
             //console.log("CHANGED");
