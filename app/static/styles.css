@@ -90,6 +90,7 @@ ul {
     position: absolute;
     margin-left: 10px;
     overflow-y: auto;
+    overflow-wrap: break-word;
 }
 
 .show-description p {
@@ -243,4 +244,19 @@ ul {
     height: 17.5px;
     transform: translate(10px, -31px);
     margin-right: 0;
+}
+
+.remove-show-container {
+    float: right;
+    position: relative;
+    width: fit-content;
+}
+
+.remove-show {
+    background-color: rgb(14, 145, 53);
+    border: none;
+    color: #fff;
+    text-align: center; 
+    font-size: 12px;
+    border-radius: 5%;
 }

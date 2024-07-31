@@ -9,38 +9,41 @@ function add_show() {
     // Fill in show card with html elements
     show_card.innerHTML = `
         <h2 contenteditable="true" spellcheck="false">Show Name</h2>
-        <div class="showbox">
-            <div class="img-frame">
-                <img src="static/img/sample.png">
-            </div>
-            <div class="show-description" contenteditable="true">
-                <p spellcheck="false">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ab hic, sunt non quaerat eveniet voluptate asperiores doloribus modi veritatis temporibus inventore officiis facere sed aut facilis aspernatur. Est, at. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur at est, architecto repellendus repellat maiores odit. Harum necessitatibus quia sunt ex esse laboriosam, veniam deserunt. Adipisci perspiciatis suscipit qui vitae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minima ea numquam placeat. Necessitatibus, eos pariatur beatae explicabo suscipit architecto commodi dolorem odit, error temporibus, quidem ab corrupti consequuntur repellat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facere mollitia fuga illo repellendus voluptate ratione alias cum aliquid quo reiciendis, consequatur debitis odio excepturi, est asperiores laborum non architecto?</p>
-            </div>
-            <div class="progbar">
-                <input class="current-ep" type="number" dir="rtl" min="0" maxlength="4" placeholder="####">
-                <p id="divider">/</p>
-                <p id="total-ep">22</p>
-                <div class="meter-bg"></div>
-                <div class="meter"></div>
-            </div>
-            <div class="ratings">
-                <div class="star-bg">
-                    <div class="star-darkgray"></div>
-                    <div class="star-yellow"></div>
-                    <img src="static/img/starframe.png">
-                    <div class = "star-buttons">
+            <div class="showbox">
+                <div class="img-frame">
+                    <img src="static/img/sample.png">
+                </div>
+                <div class="show-description" contenteditable="true">
+                    <p spellcheck="false">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ab hic, sunt non quaerat eveniet voluptate asperiores doloribus modi veritatis temporibus inventore officiis facere sed aut facilis aspernatur. Est, at. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur at est, architecto repellendus repellat maiores odit. Harum necessitatibus quia sunt ex esse laboriosam, veniam deserunt. Adipisci perspiciatis suscipit qui vitae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minima ea numquam placeat. Necessitatibus, eos pariatur beatae explicabo suscipit architecto commodi dolorem odit, error temporibus, quidem ab corrupti consequuntur repellat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facere mollitia fuga illo repellendus voluptate ratione alias cum aliquid quo reiciendis, consequatur debitis odio excepturi, est asperiores laborum non architecto?</p>
+                </div>
+                <div class="remove-show-container">
+                    <button class="remove-show" onclick="remove_show(this)">Remove Show</button>
+                </div>
+                <div class="progbar">
+                    <input class="current-ep" type="number" dir="rtl" min="0" maxlength="4" placeholder="####">
+                    <p id="divider">/</p>
+                    <p id="total-ep">22</p>
+                    <div class="meter-bg"></div>
+                    <div class="meter"></div>
+                </div>
+                <div class="ratings">
+                    <div class="star-bg">
+                        <div class="star-darkgray"></div>
+                        <div class="star-yellow"></div>
+                        <img src="static/img/starframe.png">
+                        <div class = "star-buttons">
                             <button id = "b1star"></button>
                             <button id = "b2star"></button>
                             <button id = "b3star"></button>
                             <button id = "b4star"></button>
                             <button id = "b5star"></button>
+                        </div>
+                    </div>
+                    <div class="number-bg">
+                        <input class="rating" type="number" placeholder="--" min="0.0" max="5.0" step="0.5">
                     </div>
                 </div>
-                <div class="number-bg">
-                    <input class = "rating" type="number" placeholder="--" min="0.0" max="5.0" step="0.5">
-                </div>
             </div>
-        </div>
     `;
 
     // Add show card to top of list
@@ -48,6 +51,17 @@ function add_show() {
     list.insertBefore(show_card, list.children[0]);
 }
 
+function remove_show(elemRef){
+    /*  elemRef is the element that called remove_show
+        IMPORTANT! if remove-show button is moved will need to update!
+    */
+
+    // Gets the great-grandparent of elemRef 
+    var show_card = elemRef.parentElement.parentElement.parentElement;
+
+    // set display to none so user cannot see it anymore 
+    show_card.style.display = "none";
+}
 
 function levenshtein(a, b) {
     const matrix = [];
