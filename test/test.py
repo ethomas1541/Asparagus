@@ -14,7 +14,7 @@ def get_auth_token(api_key):
     headers = {"Content-Type": "application/json"}
     response = requests.post(url, json=payload, headers=headers)
     # Print response for debugging
-    print("Authentication Response:", response.json())
+    #print("Authentication Response:", response.json())
     if 'data' in response.json() and 'token' in response.json()['data']:
         return response.json()['data']['token']
     else:
@@ -27,7 +27,7 @@ def search_series(token, series_name):
         "Accept": "application/json"
     }
     response = requests.get(url, headers=headers)
-    print("Search Series Response:", response.json())  # Debug print
+    #print("Search Series Response:", response.json())  # Debug print
     return response.json()
 
 def get_series_info(token, series_id):
@@ -37,7 +37,7 @@ def get_series_info(token, series_id):
         "Accept": "application/json"
     }
     response = requests.get(url, headers=headers)
-    print("Series Info Response:", response.json())  # Debug print
+    #print("Series Info Response:", response.json())  # Debug print
     return response.json()
 
 def display_thumbnail(image_url):
@@ -47,7 +47,7 @@ def display_thumbnail(image_url):
 
 try:
     token = get_auth_token(API_KEY)
-    series_name = "Breaking Bad"
+    series_name = "Southydfg park"
     search_results = search_series(token, series_name)
 
     if 'data' in search_results and search_results['data']:
