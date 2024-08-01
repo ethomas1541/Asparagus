@@ -117,3 +117,11 @@ function clearSearch() {
         show.style.order = 0;
     });
 }
+
+function acc_login(){
+    alert("Login Implementation Coming Soon...");
+}
+
+function create_acc(){
+    alert("Account Creation Implementation Coming Soon...");
+}

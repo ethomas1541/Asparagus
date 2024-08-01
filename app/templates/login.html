@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <nav>
+        <h1>Asparagus</h1>
+        <a href="index.html">Show List</a>
+        
+    </nav>
+
+    <div class="center">
+        <div class="login-container">
+            <h1>Existing User</h1>
+            <label for="uname">Username</label><br>
+            <input  class="acc-in"type="text" id="uname" placeholder="Username"><br><br>
+
+            <label for="pass">Password</label><br>
+            <input class="acc-in" type="text" id="pass" placeholder="Password"><br><br>
+
+            <button class="acc-in-but" id="login" onclick="acc_login()">
+                Login
+            </button>
+        </div>
+        
+        <h3>OR</h3>
+        
+        <div class="signup-container">
+            <h1>New User</h1>
+            <label for="uname">Username</label><br>
+            <input class="acc-in" type="text" id="uname" placeholder="Username"><br><br>
+
+            <label for="pass">Password</label><br>
+            <input class="acc-in" type="text" id="pass" placeholder="Password"><br><br>
+
+            <label for="vpass">Verify Password</label><br>
+            <input class="acc-in" type="text" id="vpass" placeholder="Verify Password"><br><br>
+
+            <button class="acc-in-but" id="signup" onclick="create_acc()">
+                Create Account
+            </button>
+
+        </div>
+    </div>
+    
+</body>
+
+</html>
