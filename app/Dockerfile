@@ -6,4 +6,3 @@ WORKDIR /flask_app
 RUN pip install -r requirements.txt
 ENTRYPOINT ["python", "-B"]
 CMD ["flask_app.py"]
-EXPOSE 5000
