@@ -18,7 +18,7 @@ nav {
 nav h1 {
     margin: 0;
     color: #fff;
-    padding: 10px 0 10px 60px;
+    padding: 10px 0 10px;
     margin-top: -1px;
 }
 
@@ -56,14 +56,29 @@ ul {
     order: 0; /* Default order value */
 }
 
-.show-description p {
+.desc-p{
     font-size: 12px;
     color: #666;
     caret-color: auto;
+    background: #0000;
+    border: #0000;
+    width: 80%;
+    outline: none;
 }
 
-.show h2 {
+.showname{
     margin-bottom: 10px;
+    color: #000;
+    background: #0000;
+    border: #0000;
+    width: 80%;
+    outline: none;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.showname::placeholder{
+    color: #000;
 }
 
 .showbox {
@@ -319,4 +334,8 @@ ul {
 
 .acc-in-but {
     font-size: 16px;
+}
+
+#sample{
+    display: none;
 }

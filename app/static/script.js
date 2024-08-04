@@ -78,13 +78,13 @@ async function add_show() {
 
     // Fill in show card with html elements
     show_card.innerHTML = `
-        <h2 contenteditable="true" spellcheck="false">${firstResult.name}</h2>
+        <h2 contenteditable="true" spellcheck="false" class = "showname">${firstResult.name}</h2>
         <div class="showbox">
             <div class="img-frame">
-                <img src="${seriesImage}">
+                <img src="${seriesImage}" class = "show-img">
             </div>
-            <div class="show-description" contenteditable="true">
-                <p spellcheck="false">${seriesDescription}</p>
+            <div class="show-description">
+                <p spellcheck="false" contenteditable="true" class = "desc-p">${seriesDescription}</p>
             </div>
             <div class="remove-show-container">
                 <button class="remove-show" onclick="remove_show(this)">Remove Show</button>
@@ -130,7 +130,7 @@ function remove_show(elemRef) {
     var show_card = elemRef.parentElement.parentElement.parentElement;
 
     // set display to none so user cannot see it anymore 
-    show_card.style.display = "none";
+    show_card.remove();
 }
 
 function levenshtein(a, b) {

@@ -24,14 +24,15 @@
     </div>
 
     <ul id="show_list">
+        <!--
         <li class="show" id="sample">
-            <h2 contenteditable="true" spellcheck="false">Show Name</h2>
+            <h2 contenteditable="true" spellcheck="false" class="showname">Show Name</h2>
             <div class="showbox">
                 <div class="img-frame">
-                    <img src="static/img/sample.png">
+                    <img src="static/img/sample.png" class = "show-img">
                 </div>
-                <div class="show-description" contenteditable="true">
-                    <p spellcheck="false">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ab hic, sunt non quaerat eveniet voluptate asperiores doloribus modi veritatis temporibus inventore officiis facere sed aut facilis aspernatur. Est, at. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur at est, architecto repellendus repellat maiores odit. Harum necessitatibus quia sunt ex esse laboriosam, veniam deserunt. Adipisci perspiciatis suscipit qui vitae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minima ea numquam placeat. Necessitatibus, eos pariatur beatae explicabo suscipit architecto commodi dolorem odit, error temporibus, quidem ab corrupti consequuntur repellat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facere mollitia fuga illo repellendus voluptate ratione alias cum aliquid quo reiciendis, consequatur debitis odio excepturi, est asperiores laborum non architecto?</p>
+                <div class="show-description">
+                    <p spellcheck="false" class = "desc-p" contenteditable="true">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt ab hic, sunt non quaerat eveniet voluptate asperiores doloribus modi veritatis temporibus inventore officiis facere sed aut facilis aspernatur. Est, at. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur at est, architecto repellendus repellat maiores odit. Harum necessitatibus quia sunt ex esse laboriosam, veniam deserunt. Adipisci perspiciatis suscipit qui vitae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam minima ea numquam placeat. Necessitatibus, eos pariatur beatae explicabo suscipit architecto commodi dolorem odit, error temporibus, quidem ab corrupti consequuntur repellat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores facere mollitia fuga illo repellendus voluptate ratione alias cum aliquid quo reiciendis, consequatur debitis odio excepturi, est asperiores laborum non architecto?</p>
                 </div>
                 <div class="remove-show-container">
                     <button class="remove-show" onclick="remove_show(this)">Remove Show</button>
@@ -63,10 +64,36 @@
                 
             </div>
         </li>
+        -->
         <!-- Repeat for other shows -->
     </ul>
     
-    <script>
+    <script type="text/javascript">
+        var SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
+
+        function db_push(){
+            var names =     document.getElementsByClassName("showname");
+            var desc =      document.getElementsByClassName("desc-p");
+            var current =   document.getElementsByClassName("current-ep");
+            var rating =    document.getElementsByClassName("rating");
+            var img_srcs =  document.getElementsByClassName("show-img")
+
+            console.log(names);
+            var payload = {};
+
+            for(let i = 0; i < names.length; i++){
+                var is = i.toString();
+                payload["name" + is] =      $(names[i]).text();
+                payload["desc" + is] =      $(desc[i]).text();
+                payload["current" + is] =   $(current[i]).val();
+                payload["rating" + is] =    $(rating[i]).val();
+                payload["img_src" + is] =   $(img_srcs[i]).attr("src");
+            }
+
+            //document.getElementsByTagName("h1")[0].innerText = JSON.stringify(payload);
+
+            $.post(SCRIPT_ROOT + "/db_push", payload);
+        }
         $("#show_list").on("change", ".rating", function(){
             //console.log("CHANGED");
             //console.log($(this).parent().parent().find(".star-yellow"));
@@ -81,8 +108,9 @@
                 width = 41;
             }
             $(this).parent().parent().find(".star-yellow").width(width);
+            db_push();
         })
-        $("#show_list").on("click", "button", function(){
+        $("#show_list").on("click", ".star-buttons button", function(){
             //console.log($(this).attr("id")[1])
             $(this).parent().parent().parent().find(".rating").val($(this).attr("id")[1])
             $(".rating").trigger("change");
@@ -92,6 +120,27 @@
             let max_ep = 22; // temporary placeholder
             let width = Math.floor((cur_ep * $(this).parent().width() * 0.7 / max_ep));
             $(this).parent().find(".meter").width(width);
+            db_push();
+        });
+        $("#show_list").on("focusout", ".desc-p", function(){
+            db_push();
+        });
+        $("#show_list").on("focusout", ".showname", function(){
+            db_push();
+        });
+        // From MDN docs on MutationObserver
+        const callback = (mutationList, observer) => {
+            db_push()
+        }
+        const observer = new MutationObserver(callback)
+        observer.observe(document.getElementById("show_list"), {childList: true})
+        $(document).ready(function(){
+            $.getJSON(SCRIPT_ROOT + "/retrieve").done(
+                function(data){
+                    //document.getElementsByTagName("h1")[0].innerText = data;
+                    console.log(data);
+                }
+            )
         })
     </script>
 </body>
