@@ -24,6 +24,8 @@ nav h1 {
 
 nav a{
     color: #fff;
+    margin: 5%;
+    min-width: fit-content;
 }
 
 .search-container {
@@ -286,6 +288,9 @@ ul {
     justify-content: center;
 }
 
+
+/* Login Page */ 
+
 .login-container {
     background-color: #666;
     
@@ -338,4 +343,54 @@ ul {
 
 #sample{
     display: none;
+}
+
+/* Home Page */
+
+.welcome {
+    margin-bottom: 100px;
+}
+
+.welcome h1{
+    padding-left: 1%;
+    
+}
+
+.welcome p{
+    padding-left: 2%;
+    color: #888;
+}
+
+.HowTo {
+    margin-bottom: 100px;
+}
+
+.HowTo h1{
+    padding-left: 1%;
+}
+
+.HowTo h2{
+    padding-left: 1.5%;
+}
+
+.HowTo p{
+    padding-left: 2%;
+    color: #888;
+}
+
+.Privacy-Policy {
+    margin-bottom: 100px;
+}
+
+.Privacy-Policy h1{
+    padding-left: 1%;
+}
+
+.Privacy-Policy h2{
+    padding-left: 1.5%;
+}
+
+.Privacy-Policy p{
+    padding-left: 2%;
+    color: #888;
 }
