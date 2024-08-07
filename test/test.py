@@ -40,6 +40,20 @@ def get_series_info(token, series_id):
     #print("Series Info Response:", response.json())  # Debug print
     return response.json()
 
+def get_episode_count(token, series_id):
+    count = 0
+    url = f"{BASE_URL}/series/{series_id}/episodes/absolute"
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/json"
+}
+    response = requests.get(url, headers=headers).json()
+    if 'data' in response:
+        if 'episodes' in response['data']:
+            for e in response['data']['episodes']:
+                count = count + 1
+    return count
+
 def display_thumbnail(image_url):
     response = requests.get(image_url)
     img = Image.open(BytesIO(response.content))
@@ -57,7 +71,9 @@ try:
         
         if 'data' in series_info and 'image' in series_info['data']:
             thumbnail_url = series_info['data']['image']
+            episode_count = get_episode_count(token, series_id)
             print(f"Series Name: {first_result['name']}")
+            print(f"Episode Count: {episode_count}")
             print(f"Thumbnail URL: {thumbnail_url}")
             display_thumbnail(thumbnail_url)
         else:

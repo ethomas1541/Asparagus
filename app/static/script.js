@@ -33,6 +33,24 @@ async function searchSeries(token, seriesName) {
     }
 }
 
+async function getEpisodes(token, seriesID) {
+    const url = `https://api4.thetvdb.com/v4/series/${seriesID}/episodes/absolute`;
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json'
+    };
+
+    try {
+        const response = await axios.get(url, { headers });
+        console.log(response.data);
+        console.log(response.data.data.episodes);
+        return response.data.data.episodes.length.toString();
+    } catch (error) {
+        console.error("Get episodes error:", error.response ? error.response.data : error.message);
+        throw error;
+    }
+}
+
 async function add_show() {
     const API_KEY = 'fefac935-f11a-4342-87fc-59e8ee37995e';
     let token;
@@ -58,15 +76,18 @@ async function add_show() {
     let firstResult;
     let seriesDescription;
     let seriesImage;
+    let seriesEpisodes;
 
     if (searchResults.data && searchResults.data.length > 0) {
         firstResult = searchResults.data[0];
         seriesDescription = firstResult.overview || "Description not available.";
         seriesImage = firstResult.image_url ? firstResult.image_url : "static/img/sample.png";
+        seriesEpisodes = await getEpisodes(token, firstResult.tvdb_id);
     } else {
         firstResult = { name: seriesName };
         seriesDescription = "No information available.";
         seriesImage = "static/img/sample.png";
+        seriesEpisodes = "1";
     }
 
     // Create list element to hold show card
@@ -92,7 +113,7 @@ async function add_show() {
             <div class="progbar">
                 <input class="current-ep" type="number" dir="rtl" min="0" maxlength="4" placeholder="####">
                 <p id="divider">/</p>
-                <p id="total-ep">22</p>
+                <p id="total-ep">${seriesEpisodes}</p>
                 <div class="meter-bg"></div>
                 <div class="meter"></div>
             </div>
