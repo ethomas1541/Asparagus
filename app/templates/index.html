@@ -23,6 +23,7 @@
     </div>
 
     <div class="add-show-container">
+        <input type="text" id="newShowInput" placeholder="Enter show name...">
         <button class="add-show" onclick="add_show()">Add New Show</button>
     </div>
 
@@ -69,8 +70,9 @@
         </li>
         -->
         <!-- Repeat for other shows -->
+        <!-- Show list items will be appended here -->
     </ul>
-    
+
     <script type="text/javascript">
         var SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
 

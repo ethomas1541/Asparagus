@@ -62,7 +62,7 @@ async function add_show() {
         return;
     }
 
-    const seriesName = prompt("Enter the name of the show:");
+    const seriesName = document.getElementById('newShowInput').value.trim();
     if (!seriesName) return;
 
     let searchResults;
@@ -99,13 +99,13 @@ async function add_show() {
 
     // Fill in show card with html elements
     show_card.innerHTML = `
-        <h2 contenteditable="true" spellcheck="false" class = "showname">${firstResult.name}</h2>
+        <h2 contenteditable="true" spellcheck="false" class="showname">${firstResult.name}</h2>
         <div class="showbox">
             <div class="img-frame">
-                <img src="${seriesImage}" class = "show-img">
+                <img src="${seriesImage}" class="show-img">
             </div>
             <div class="show-description">
-                <p spellcheck="false" contenteditable="true" class = "desc-p">${seriesDescription}</p>
+                <p spellcheck="false" contenteditable="true" class="desc-p">${seriesDescription}</p>
             </div>
             <div class="remove-show-container">
                 <button class="remove-show" onclick="remove_show(this)">Remove Show</button>
@@ -140,6 +140,9 @@ async function add_show() {
     // Add show card to top of list
     const list = document.getElementById("show_list");
     list.insertBefore(show_card, list.children[0]);
+
+    // Clear the input field
+    document.getElementById('newShowInput').value = '';
 }
 
 function remove_show(elemRef) {
