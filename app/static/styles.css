@@ -151,6 +151,24 @@ ul {
     border: none;
 }
 
+.total-ep {
+    text-align: left;
+    min-width: 52px;
+    width: 5%;
+    margin-left: 2.5%;
+    
+    /* Same as rest in class progbar */
+    margin: 0;
+    display: inline-block;
+    color: #666;
+    caret-color: auto;
+
+    /* Used to match appearance */
+    background-color: #333;
+    font-size: 16px;
+    border: none;
+}
+
 #divider {
     text-align: center;
     margin-left: 0%;

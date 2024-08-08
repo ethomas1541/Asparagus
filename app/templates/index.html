@@ -44,7 +44,7 @@
                 <div class="progbar">
                     <input class="current-ep" type="number" dir="rtl" min="0" maxlength="4" placeholder="####">
                     <p id="divider">/</p>
-                    <p id="total-ep">22</p>
+                    <div class="total-ep">22</div>
                     <div class="meter-bg"></div>
                     <div class="meter"></div>
                 </div>
@@ -115,9 +115,41 @@
 
         function meter_adjust(elem){
             let cur_ep = Number($(elem).val());
-            let max_ep = 22; // temporary placeholder
+            let max_ep = Number($(elem).parent().find(".total-ep")[0].textContent);
             let width = Math.floor((cur_ep * $(elem).parent().width() * 0.7 / max_ep));
             $(elem).parent().find(".meter").width(width);
+        }
+
+        async function get_episode_count(showname) {
+                const API_KEY = 'fefac935-f11a-4342-87fc-59e8ee37995e';
+                let token;
+
+                try {
+                token = await getAuthToken(API_KEY);
+                } catch (error) {
+                    console.error('Failed to get auth token:', error);
+                    return;
+                }
+
+                let searchResults;
+                try {
+                    searchResults = await searchSeries(token, showname);
+                } catch (error) {
+                    console.error('Failed to search for series:', error);
+                    return;
+                }
+
+                let firstResult;
+                let seriesEpisodes;
+                if (searchResults.data && searchResults.data.length > 0) {
+                    firstResult = searchResults.data[0];
+                    seriesEpisodes = await getEpisodes(token, firstResult.tvdb_id);
+                } else {
+                    firstResult = { name: seriesName };
+                    seriesEpisodes = "1";
+                }
+
+                return seriesEpisodes;
         }
 
         $("#show_list").on("change", ".rating", function(){
@@ -148,12 +180,13 @@
         }
         const observer = new MutationObserver(callback)
         observer.observe(document.getElementById("show_list"), {childList: true})
-        $(document).ready(function(){
+        $(document).ready(async function(){
             $.getJSON(SCRIPT_ROOT + "/retrieve").done(
-                function(data){
+                async function(data){
                     for(let i = 0; i < data.length; i++){
                         console.log(data[i])
                         let show_card = document.createElement("li");
+                        let episode_count = await get_episode_count(data[i].name);
                         show_card.className = "show";
                         show_card.id = "show card";
                         show_card.innerHTML = `
@@ -171,7 +204,7 @@
                             <div class="progbar">
                                 <input class="current-ep" type="number" dir="rtl" min="0" maxlength="4" placeholder="####" value = "${data[i].prog}">
                                 <p id="divider">/</p>
-                                <p id="total-ep">22</p>
+                                <div class="total-ep">${episode_count}</div>
                                 <div class="meter-bg"></div>
                                 <div class="meter"></div>
                             </div>
@@ -204,4 +237,4 @@
         })
     </script>
 </body>
-</html>
+</html>s
