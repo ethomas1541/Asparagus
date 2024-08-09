@@ -20,34 +20,47 @@
     <div class="center">
         <div class="login-container">
             <h1>Existing User</h1>
-            <label for="uname">Username</label><br>
-            <input  class="acc-in"type="text" id="uname" placeholder="Username"><br><br>
 
-            <label for="pass">Password</label><br>
-            <input class="acc-in" type="text" id="pass" placeholder="Password"><br><br>
+            <div class="login-error" id="login-error-msg-holder">
+                <p id="login-error-msg">Invalid username or password</p>
+            </div>
 
-            <button class="acc-in-but" id="login" onclick="acc_login()">
-                Login
-            </button>
+            <form id="login-form">
+                <label for="login-uname">Username</label><br>
+                <input  class="acc-input" type="text" name="username" id="login-uname" placeholder="Username"><br><br>
+
+                <label for="login-pass">Password</label><br>
+                <input class="acc-input" type="password" id="login-pass" placeholder="Password"><br><br>
+
+                <button type="submit" class="acc-input-button" id="login-submit" onclick="acc_login()">Login</button>
+            </form>
         </div>
         
         <h3>OR</h3>
         
         <div class="signup-container">
             <h1>New User</h1>
-            <label for="uname">Username</label><br>
-            <input class="acc-in" type="text" id="uname" placeholder="Username"><br><br>
 
-            <label for="pass">Password</label><br>
-            <input class="acc-in" type="text" id="pass" placeholder="Password"><br><br>
+            <div class="signup-error" id="signup-uname-error-msg-holder">
+                <p id="signup-uname-error-msg">Username already taken</p>
+            </div>
 
-            <label for="vpass">Verify Password</label><br>
-            <input class="acc-in" type="text" id="vpass" placeholder="Verify Password"><br><br>
+            <div class="signup-error" id="signup-pass-error-msg-holder">
+                <p id="signup-pass-error-msg">Password verification failed</p>
+            </div>
+            
+            <form id="signup-form">
+                <label for="signup-uname">Username</label><br>
+                <input class="acc-input" type="text" id="signup-uname" placeholder="Username"><br><br>
 
-            <button class="acc-in-but" id="signup" onclick="create_acc()">
-                Create Account
-            </button>
+                <label for="signup-pass">Password</label><br>
+                <input class="acc-input" type="password" id="signup-pass" placeholder="Password"><br><br>
 
+                <label for="verify-pass">Verify Password</label><br>
+                <input class="acc-input" type="password" id="verify-pass" placeholder="Verify Password"><br><br>
+
+                <button class="acc-input-button" id="signup-submit" onclick="create_acc()">Create Account</button>
+            </form>
         </div>
     </div>
     

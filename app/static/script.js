@@ -212,9 +212,103 @@ function clearSearch() {
 }
 
 function acc_login() {
-    alert("Login Implementation Coming Soon...");
+    /* Logs user into their account */
+    
+    
+    // Retrieve error message
+    const loginErrorMsg = document.getElementById("login-error-msg-holder");
+
+    // Save inputted username and password
+    const username_in = document.getElementById("login-uname").value;
+    const password_in = document.getElementById("login-pass").value;
+
+    // find username in database & get listed password
+    const username_db = "user";         // Default for now
+    const password_db = "pass";
+    
+    // Check if username and password match
+
+    // username does NOT have a match in database
+    // OR password does NOT match listed password user username
+    if(username_in != username_db || password_in != password_db){
+        
+        // display error
+        loginErrorMsg.style.display = "block";      // FIXME: displays for a split second only
+        
+        //alert("Wrong username or password");
+    }
+
+    // username does have a match in database
+    // and password matches listed password under username
+    else {
+        //alert("Correct login info");
+
+        // Get rid of error
+        //loginErrorMsg.style.display = "none";
+    
+        // sign into account (not sure what this entails...)
+        
+        // got to show list page (index.html)
+        //document.location = 'index.html';     //Not working
+            
+    }
 }
 
 function create_acc() {
-    alert("Account Creation Implementation Coming Soon...");
+    /* Creates user account within the database */
+    
+
+    // Retrieve error messages
+    const unameErrorMsg = document.getElementById("signup-uname-error-msg-holder");
+    const passVerErrorMsg = document.getElementById("signup-pass-error-msg-holder");
+
+    // Save inputted username and password
+    const username_in = document.getElementById("signup-uname").value;
+    const password_in = document.getElementById("signup-pass").value;
+    const ver_password = document.getElementById("login-pass").value;
+
+    // check if username in database already
+    var isUsernameAval = false;
+
+    // username is already used in the database and not available
+    if(!isUsernameAval){
+        // display error
+        //alert("Username already taken");
+        unameErrorMsg.style.display = "block"           // FIXME: displays for a split second only
+
+    }
+
+    // username is available
+    else{
+        //alert("Username avaialable");
+        // Get rid of error message
+        unameErrorMsg.style.display = "none"
+
+        // check password matches verification password
+
+        // Passwords does not match verification
+        if(password_in != ver_password){
+            // display error
+            passVerErrorMsg.style.display = "block"         // FIXME: displays for a split second only
+        }
+
+        // Passwords matches verification
+        else{
+            // Get rid of error message
+            passVerErrorMsg.style.display = "none"
+            
+            // add username to database
+
+            // create hashed password
+
+            // add hashed password under username in database
+
+            // sign into account (not sure what this entails...)
+
+            // go to show list page (index.html)
+            //document.location = 'index.html';     //Not working
+        }
+    }
+
 }
+

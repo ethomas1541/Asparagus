@@ -310,28 +310,15 @@ ul {
     justify-content: center;
 }
 
+#sample{
+    display: none;
+}
+
+
 
 /* Login Page */ 
 
-.login-container {
-    background-color: #666;
-    
-    width: 25%;
-    min-width: fit-content;
-    max-width: 500px;
-    padding: 5px 20px 50px 20px;
-    margin: 2.5%;
-    
-    border-radius: 15px;
-
-    font-size: 24px;
-    text-align: center;
-
-    position: relative;
-    float: center;
-}
-
-.signup-container {
+.signup-container, .login-container{
     background-color: #666;
     
     width: 25%;
@@ -350,22 +337,67 @@ ul {
 
 }
 
-.acc-in {
+.acc-input {
+    
     width: 60%;
     margin: 2.5% 0% 0% 2.5%;
-    height: 24px;
+    height: 36px;
 
     font-size: 16px;
 
 }
 
-.acc-in-but {
+.acc-input-button {
+    background-color: rgb(14, 145, 53);
+    color: #fff;
+    border-color: darkgreen;
+    font-size: 16px;
+    height: 36px;
+}
+
+.signup-error, .login-error {
+    border: solid;
+    border-width: 1px;
+    border-color: darkred;
+
+    background: lightcoral;
+
+    width: 60%;
+    max-width: 300px;
+    margin: 0% 0% 2.5% 21.5%;
+
+    color: darkred;
     font-size: 16px;
 }
 
-#sample{
+#login-error-msg-holder {
+    
     display: none;
+    
+    /*
+    display:block; 
+    */
 }
+
+
+#signup-uname-error-msg-holder {
+    
+    display: none;
+    
+    /*
+    display:block; 
+    */
+}
+
+#signup-pass-error-msg-holder {
+    
+    display: none;
+
+    /*
+    display:block; 
+    */
+}
+
 
 /* Home Page */
 
