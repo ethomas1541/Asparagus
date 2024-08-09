@@ -13,6 +13,14 @@ collection = db.shows
 def default():
     return render_template("index.html")
 
+@app.route('/login/')
+def login():
+    return render_template("login.html")
+
+@app.route('/home/')
+def home():
+    return render_template("home.html")
+
 @app.route("/db_push", methods = ['POST'])
 def db_push():
     db.drop_collection("shows")
