@@ -1,19 +1,28 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 from pymongo import MongoClient
 import logging
 from bson import json_util
+from bcrypt import hashpw, gensalt
 
 app = Flask(__name__)
 
 client = MongoClient("mongodb://mongo", 27017)
 db = client.mydb
 collection = db.shows
+user_collection = db.users
 
-@app.route("/")
-def default():
-    return render_template("index.html")
+tokens = {
 
-@app.route('/login/')
+}
+
+@app.route("/shows-<id>")
+def default(id):
+    if id == "ADMIN":
+        return render_template("index.html")
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/login')
 def login():
     return render_template("login.html")
 
@@ -28,9 +37,9 @@ def db_push():
     # app.logger.debug(list(dict(request.form).values()))
     payload = list(dict(request.form).values())
 
-    app.logger.debug(payload)
+    # app.logger.debug(payload)
 
-    app.logger.debug(int(len(payload)/5))
+    # app.logger.debug(int(len(payload)/5))
 
     for i in range(int(len(payload)/5)):
         i5 = i * 5
@@ -42,14 +51,30 @@ def db_push():
             "img" : payload[i5 + 4]
         })
 
+    '''
     for entry in list(db.shows.find()):
         app.logger.debug(entry)
-
+    '''
+        
     return "200 OK"
 
 @app.route("/retrieve", methods = ['GET'])
 def retrieve():
     return json_util.dumps(list(db.shows.find()))
+
+@app.route("/create_user", methods = ["POST"])
+def create_user():
+    payload = list(dict(request.form).values())
+    app.logger.debug(payload)
+    user_collection.insert_one({
+        "username": payload[0],
+        "password": hashpw(payload[1].encode('utf-8'), gensalt())
+    })
+
+    for entry in list(user_collection.find()):
+        app.logger.debug(entry)
+
+    return "200 OK"
 
 app.logger.setLevel(logging.DEBUG)
 

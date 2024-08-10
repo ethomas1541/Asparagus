@@ -64,6 +64,23 @@
         </div>
     </div>
     
+    <script type="text/javascript">
+        var SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
+
+        $("#signup-submit").on("click", function(){
+            var pass = $("#signup-pass").val();
+            if(pass == $("#verify-pass").val()){
+                var payload = {
+                    username: $("#signup-uname").val(),
+                    password: pass
+                }
+                $.post(SCRIPT_ROOT + "/create_user", payload);
+            }else{
+                // Password mismatch
+            }
+        })
+    </script>
+
 </body>
 
 </html>
