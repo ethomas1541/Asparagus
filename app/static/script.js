@@ -211,6 +211,29 @@ function clearSearch() {
     });
 }
 
+function sortShows() {
+    const sortOrder = document.getElementById('sortDropdown').value;
+    const shows = Array.from(document.querySelectorAll('#show_list .show'));
+
+    if (sortOrder === "default") {
+        return; // Do nothing if the default option is selected
+    }
+
+    shows.sort((a, b) => {
+        const nameA = a.querySelector('.showname').textContent.toLowerCase();
+        const nameB = b.querySelector('.showname').textContent.toLowerCase();
+
+        if (sortOrder === 'az') {
+            return nameA.localeCompare(nameB);
+        } else if (sortOrder === 'za') {
+            return nameB.localeCompare(nameA);
+        }
+    });
+
+    const showList = document.getElementById('show_list');
+    shows.forEach(show => showList.appendChild(show));
+}
+
 function acc_login() {
     /* Logs user into their account */
     
