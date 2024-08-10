@@ -58,10 +58,13 @@ nav a{
     background-color: rgb(14, 145, 53);
     border: none;
     color: #fff;
-    padding: 10px;
+    padding: 5px 10px; /* Adjust padding for a thinner button */
     font-size: 14px;
     border-radius: 5%;
     cursor: pointer;
+    text-align: left; /* Left-align text */
+    width: auto; /* Adjust width based on content */
+    appearance: menulist-button; /* Ensure the arrow is visible */
 }
 
 ul {
