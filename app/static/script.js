@@ -113,7 +113,7 @@ async function add_show() {
             <div class="progbar">
                 <input class="current-ep" type="number" dir="rtl" min="0" maxlength="4" placeholder="####">
                 <p id="divider">/</p>
-                <p id="total-ep">${seriesEpisodes}</p>
+                <p class="total-ep">${seriesEpisodes}</p>
                 <div class="meter-bg"></div>
                 <div class="meter"></div>
             </div>
