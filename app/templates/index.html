@@ -129,6 +129,10 @@
         function meter_adjust(elem){
             let cur_ep = Number($(elem).val());
             let max_ep = Number($(elem).parent().find(".total-ep")[0].textContent);
+            if (cur_ep > max_ep) {
+                $(elem).val(max_ep);
+                cur_ep = max_ep;
+            }
             let width = Math.floor((cur_ep * $(elem).parent().width() * 0.7 / max_ep));
             $(elem).parent().find(".meter").width(width);
         }
