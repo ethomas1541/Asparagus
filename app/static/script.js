@@ -337,3 +337,15 @@ function create_acc() {
 }
 
 */
+function signout(){
+    /* Logs user out of their account. */
+
+    alert("Sign out function not implemented yet");
+    
+    // This will probably be done in jquery
+
+    // Probably End session token
+
+    // Return to homepage
+
+}
