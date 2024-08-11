@@ -389,6 +389,23 @@ ul {
     font-size: 16px;
 }
 
+#signup-success{
+    border: solid;
+    border-width: 1px;
+    border-color: darkgreen;
+
+    background: lightgreen;
+
+    width: 60%;
+    max-width: 300px;
+    margin: 0% 0% 2.5% 21.5%;
+
+    color: darkgreen;
+    font-size: 16px;
+
+    display: none;
+}
+
 #login-error-msg-holder {
     
     display: none;
@@ -415,6 +432,10 @@ ul {
     /*
     display:block; 
     */
+}
+
+#signup-field-req-msg-holder{
+    display: none;
 }
 
 

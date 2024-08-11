@@ -64,10 +64,18 @@ def retrieve():
 
 @app.route("/create_user", methods = ["POST"])
 def create_user():
+    
     payload = list(dict(request.form).values())
+    username = payload[0]
+
+    # Check if user already exists
+    for entry in list(user_collection.find()):
+        if username == entry["username"]:
+            return {"a": "b"}, 400
+        
     app.logger.debug(payload)
     user_collection.insert_one({
-        "username": payload[0],
+        "username": username,
         "password": hashpw(payload[1].encode('utf-8'), gensalt())
     })
 

@@ -46,7 +46,15 @@
             </div>
 
             <div class="signup-error" id="signup-pass-error-msg-holder">
-                <p id="signup-pass-error-msg">Password verification failed</p>
+                <p id="signup-pass-error-msg">Password verification failed, please ensure passwords are matching and are at least 8 characters long.</p>
+            </div>
+
+            <div class="signup-error" id="signup-field-req-msg-holder">
+                <p id="field-req-msg">All fields are required</p>
+            </div>
+
+            <div id="signup-success">
+                <p>New user created successfully!</p>
             </div>
             
             <form id="signup-form">
@@ -59,7 +67,7 @@
                 <label for="verify-pass">Verify Password</label><br>
                 <input class="acc-input" type="password" id="verify-pass" placeholder="Verify Password"><br><br>
 
-                <button class="acc-input-button" id="signup-submit" onclick="create_acc()">Create Account</button>
+                <button class="acc-input-button" id="signup-submit">Create Account</button>
             </form>
         </div>
     </div>
@@ -67,17 +75,44 @@
     <script type="text/javascript">
         var SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
 
-        $("#signup-submit").on("click", function(){
+        $("#signup-submit").on("click", function(e){
+            //(".signup-error").css("display", "none");
+            $("#signup-uname-error-msg-holder").css("display", "none");
+            $("#signup-pass-error-msg-holder").css("display", "none");
+            $("#signup-field-req-msg-holder").css("display", "none");
+            $("#signup-success").css("display", "none");
+            e.preventDefault();
+            var uname = $("#signup-uname").val();
             var pass = $("#signup-pass").val();
-            if(pass == $("#verify-pass").val()){
-                var payload = {
-                    username: $("#signup-uname").val(),
-                    password: pass
+            var pass_ver = $("#verify-pass").val();
+            // console.log(pass, $("#verify-pass").val());
+            const required_fields = [uname, pass, pass_ver];
+            if(!required_fields.includes("")){
+                if(pass === pass_ver && pass.length >= 8){
+                    // console.log("GOOD")
+                    var payload = {
+                        username: uname,
+                        password: pass
+                    }
+                    var posting = $.post(SCRIPT_ROOT + "/create_user", payload)
+                    
+                    posting.fail(function(){
+                        $("#signup-uname-error-msg-holder").css("display", "block");
+                    });
+
+                    posting.done(function(){
+                        $("#signup-success").css("display", "block");
+                    });
+                }else{
+                    // console.log("BAD")
+                    $("#signup-pass-error-msg-holder").css("display", "block");
                 }
-                $.post(SCRIPT_ROOT + "/create_user", payload);
             }else{
-                // Password mismatch
+                $("#signup-field-req-msg-holder").css("display", "block");
             }
+            $("#signup-uname").val('');
+            $("#signup-pass").val('');
+            $("#verify-pass").val('');
         })
     </script>
 

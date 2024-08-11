@@ -277,8 +277,9 @@ function acc_login() {
     }
 }
 
+/*
 function create_acc() {
-    /* Creates user account within the database */
+    //
     
 
     // Retrieve error messages
@@ -335,3 +336,4 @@ function create_acc() {
 
 }
 
+*/
