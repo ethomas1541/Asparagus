@@ -28,7 +28,15 @@ nav a{
     min-width: fit-content;
 }
 
-.search-container, .add-show-container {
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the items horizontally */
+    margin: 10px 0;
+    margin-right: 25%;
+}
+
+.add-show-container {
     display: flex;
     align-items: center;
     justify-content: center; /* Center the items horizontally */
@@ -238,14 +246,6 @@ ul {
     transform: translate(135px, -28px);
 }
 
-/* Replaced with input
-.number-bg p{
-    margin: 0;
-    font-weight: bold;
-    transform: translate(9px, 4px);
-    color: #fc0;
-}
-*/
 .number-bg input {
     margin: 0;
     font-weight: bold;
@@ -296,6 +296,7 @@ ul {
     font-size: 14px; /* Adjust font size as needed */
     padding: 10px; /* Adjust padding as needed */
     border-radius: 5%;
+    cursor: pointer;
 }
 
 .star-buttons button{
@@ -321,6 +322,7 @@ ul {
     font-size: 14px; /* Adjust font size as needed */
     padding: 10px; /* Adjust padding as needed */
     border-radius: 5%;
+    cursor: pointer;
 }
 
 .center {
@@ -372,6 +374,7 @@ ul {
     border-color: darkgreen;
     font-size: 16px;
     height: 36px;
+    cursor: pointer;
 }
 
 .signup-error, .login-error {
@@ -441,50 +444,27 @@ ul {
 
 /* Home Page */
 
-.welcome {
-    margin-bottom: 100px;
+.welcome, .HowTo, .Privacy-Policy {
+    margin-bottom: 75px;
 }
 
-.welcome h1{
+.welcome h1, .HowTo h1, .Privacy-Policy h1{
     padding-left: 1%;
-    
+    padding-right: 1%;
+    background-color: rgb(14, 145, 53);
+    font-size: 32px;
+    width:fit-content;
 }
 
-.welcome p{
-    padding-left: 2%;
-    color: #888;
-}
-
-.HowTo {
-    margin-bottom: 100px;
-}
-
-.HowTo h1{
-    padding-left: 1%;
-}
-
-.HowTo h2{
+.HowTo h2, .Privacy-Policy h2{
     padding-left: 1.5%;
+    font-size: 28px;
 }
 
-.HowTo p{
-    padding-left: 2%;
+.welcome p, .HowTo p, .Privacy-Policy p{
+    padding-left: 2.5%;
+    padding-right: 5%;
+    padding-bottom: 1%;
     color: #888;
-}
-
-.Privacy-Policy {
-    margin-bottom: 100px;
-}
-
-.Privacy-Policy h1{
-    padding-left: 1%;
-}
-
-.Privacy-Policy h2{
-    padding-left: 1.5%;
-}
-
-.Privacy-Policy p{
-    padding-left: 2%;
-    color: #888;
+    font-size: 20px;
 }

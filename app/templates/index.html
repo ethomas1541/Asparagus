@@ -16,15 +16,17 @@
         </div>
     </nav>
 
-    <div class="search-container">
-        <input type="text" id="searchBar" placeholder="Search for shows...">
-        <button onclick="searchShows()">Search</button>
-        <button onclick="clearSearch()">Clear</button>
-    </div>
+    <div class="center">
+        <div class="search-container">
+            <input type="text" id="searchBar" placeholder="Search for shows...">
+            <button onclick="searchShows()">Search</button>
+            <button onclick="clearSearch()">Clear</button>
+        </div>
 
-    <div class="add-show-container">
-        <input type="text" id="newShowInput" placeholder="Enter show name...">
-        <button class="add-show" onclick="add_show()">Add New Show</button>
+        <div class="add-show-container">
+            <input type="text" id="newShowInput" placeholder="Enter show name...">
+            <button class="add-show" onclick="add_show()">Add New Show</button>
+        </div>
     </div>
 
     <div class="sort-container">
@@ -34,6 +36,7 @@
             <option value="za">Z-A</option>
         </select>
     </div>
+
 
     <ul id="show_list">
         <!--
