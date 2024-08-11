@@ -234,8 +234,9 @@ function sortShows() {
     shows.forEach(show => showList.appendChild(show));
 }
 
+/*
 function acc_login() {
-    /* Logs user into their account */
+    // Logs user into their account
     
     
     // Retrieve error message
@@ -277,7 +278,6 @@ function acc_login() {
     }
 }
 
-/*
 function create_acc() {
     //
     
@@ -336,9 +336,8 @@ function create_acc() {
 
 }
 
-*/
+
 function signout(){
-    /* Logs user out of their account. */
 
     alert("Sign out function not implemented yet");
     
@@ -349,3 +348,4 @@ function signout(){
     // Return to homepage
 
 }
+*/

@@ -32,7 +32,7 @@
                 <label for="login-pass">Password</label><br>
                 <input class="acc-input" type="password" id="login-pass" placeholder="Password"><br><br>
 
-                <button type="submit" class="acc-input-button" id="login-submit" onclick="acc_login()">Login</button>
+                <button type="submit" class="acc-input-button" id="login-submit">Login</button>
             </form>
         </div>
         
@@ -42,7 +42,7 @@
             <h1>Create Account</h1>
 
             <div class="signup-error" id="signup-uname-error-msg-holder">
-                <p id="signup-uname-error-msg">Username already taken</p>
+                <p id="signup-uname-error-msg">Username already taken or contains non-alphanumeric characters</p>
             </div>
 
             <div class="signup-error" id="signup-pass-error-msg-holder">
@@ -74,6 +74,31 @@
     
     <script type="text/javascript">
         var SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
+
+        $("#login-submit").on("click", function(e){
+            $("#login-error-msg-holder").css("display", "none");
+            e.preventDefault();
+            var uname = $("#login-uname").val();
+            var pass = $("#login-pass").val();
+            const required_fields = [uname, pass]
+            if(!required_fields.includes("")){
+                var payload = {
+                    username: uname,
+                    password: pass
+                };
+                var posting = $.post(SCRIPT_ROOT + "/auth", payload)
+                
+                posting.fail(function(){
+                    $("#login-error-msg-holder").css("display", "block");
+                });
+
+                posting.done(function(){
+                    window.location.replace(`http://${location.hostname}:5000/shows-${uname}`)
+                })
+            }else{
+                $("#login-error-msg-holder").css("display", "block");
+            }
+        })
 
         $("#signup-submit").on("click", function(e){
             //(".signup-error").css("display", "none");

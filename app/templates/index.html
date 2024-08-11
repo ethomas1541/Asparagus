@@ -14,7 +14,7 @@
             <a href="/login">Login</a>
             <a href="/home">Home Page</a>
         
-            <button class="signout-button" onclick="signout()">Sign Out</button>
+            <button class="signout-button">Sign Out</button>
         </div>
     </nav>
 
@@ -195,6 +195,10 @@
         const callback = (mutationList, observer) => {
             db_push();
         }
+        $(".signout-button").on("click", function(){
+            $.post(SCRIPT_ROOT + "/signout");
+            window.location.replace(`http://${location.hostname}:5000/login`)
+        })
         const observer = new MutationObserver(callback)
         observer.observe(document.getElementById("show_list"), {childList: true})
         $(document).ready(async function(){
