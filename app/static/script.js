@@ -220,27 +220,95 @@ function clearSearch() {
     });
 }
 
-function sortShows() {
+async function sortShows() {
     const sortOrder = document.getElementById('sortDropdown').value;
     const shows = Array.from(document.querySelectorAll('#show_list .show'));
+
+    console.log(`Sort order selected: ${sortOrder}`);
 
     if (sortOrder === "default") {
         return; // Do nothing if the default option is selected
     }
 
-    shows.sort((a, b) => {
-        const nameA = a.querySelector('.showname').textContent.toLowerCase();
-        const nameB = b.querySelector('.showname').textContent.toLowerCase();
+    if (sortOrder === 'az' || sortOrder === 'za') {
+        shows.sort((a, b) => {
+            const nameA = a.querySelector('.showname').textContent.toLowerCase();
+            const nameB = b.querySelector('.showname').textContent.toLowerCase();
 
-        if (sortOrder === 'az') {
-            return nameA.localeCompare(nameB);
-        } else if (sortOrder === 'za') {
-            return nameB.localeCompare(nameA);
-        }
+            if (sortOrder === 'az') {
+                return nameA.localeCompare(nameB);
+            } else if (sortOrder === 'za') {
+                return nameB.localeCompare(nameA);
+            }
+        });
+
+        const showList = document.getElementById('show_list');
+        showList.innerHTML = ''; // Clear the current list
+
+        // Re-append sorted elements
+        shows.forEach(show => showList.appendChild(show));
+    } else if (sortOrder === 'airdate') {
+        await sortByAirDate(shows);
+    }
+}
+
+async function sortByAirDate(shows) {
+    const showData = await Promise.all(shows.map(async (show) => {
+        const showName = show.querySelector('.showname').textContent.trim();
+        const airDate = await getAirDate(showName);
+        return { show, airDate };
+    }));
+
+    console.log('Before sorting:', showData);
+
+    // Sort the shows by air date
+    showData.sort((a, b) => {
+        if (!a.airDate) return 1; // Push shows with no air date to the end
+        if (!b.airDate) return -1;
+        return new Date(a.airDate) - new Date(b.airDate);
     });
 
-    const showList = document.getElementById('show_list');
-    shows.forEach(show => showList.appendChild(show));
+    console.log('After sorting:', showData);
+
+    // Reorder the shows in the DOM
+    showData.forEach(({ show }) => {
+        show.parentNode.appendChild(show);
+    });
+}
+
+async function getAirDate(showName) {
+    const API_KEY = 'fefac935-f11a-4342-87fc-59e8ee37995e';
+    let token;
+
+    try {
+        token = await getAuthToken(API_KEY);
+    } catch (error) {
+        console.error('Failed to get auth token:', error);
+        return null;
+    }
+
+    let searchResults;
+    try {
+        searchResults = await searchSeries(token, showName);
+    } catch (error) {
+        console.error('Failed to search for series:', error);
+        return null;
+    }
+
+    if (!searchResults.data || searchResults.data.length === 0) {
+        console.error(`Show "${showName}" not found.`);
+        return null;
+    }
+
+    let firstResult = searchResults.data[0];
+
+    if (firstResult.primary_type === 'movie' || firstResult.type === 'movie') {
+        console.error(`"${firstResult.name}" is a movie, not a TV show.`);
+        return null;
+    }
+
+    console.log(`Air date for "${showName}": ${firstResult.first_air_time}`); // Log the air date
+    return firstResult.first_air_time || null;
 }
 
 /*
