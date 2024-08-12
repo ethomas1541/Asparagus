@@ -141,7 +141,7 @@
         })
         $("#showlistlink").on("click", function(){
             $.get(SCRIPT_ROOT + "/anonymous").done(function(response){
-                console.log(response)
+                window.location.replace(`http://${location.hostname}:5000/shows-${response}`)
             })
         })
     </script>
