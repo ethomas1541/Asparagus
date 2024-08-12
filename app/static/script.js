@@ -73,22 +73,31 @@ async function add_show() {
         return;
     }
 
+    if (!searchResults.data || searchResults.data.length === 0) {
+        alert(`Show "${seriesName}" not found.`);
+        return;
+    }
+
     let firstResult;
     let seriesDescription;
     let seriesImage;
     let seriesEpisodes;
 
-    if (searchResults.data && searchResults.data.length > 0) {
-        firstResult = searchResults.data[0];
-        seriesDescription = firstResult.overview || "Description not available.";
-        seriesImage = firstResult.image_url ? firstResult.image_url : "static/img/sample.png";
-        seriesEpisodes = await getEpisodes(token, firstResult.tvdb_id);
-    } else {
-        firstResult = { name: seriesName };
-        seriesDescription = "No information available.";
-        seriesImage = "static/img/sample.png";
-        seriesEpisodes = "1";
+    firstResult = searchResults.data[0];
+
+    if (firstResult.primary_type === 'movie' || firstResult.type === 'movie') {
+        alert(`"${firstResult.name}" is a movie, not a TV show.`);
+        return;
     }
+
+    seriesDescription = firstResult.overview || "Description not available.";
+    seriesImage = firstResult.image_url ? firstResult.image_url : "static/img/sample.png";
+    seriesEpisodes = await getEpisodes(token, firstResult.tvdb_id);
+    
+        //firstResult = { name: seriesName };
+        //seriesDescription = "No information available.";
+        //seriesImage = "static/img/sample.png";
+        //seriesEpisodes = "1";
 
     // Create list element to hold show card
     let show_card = document.createElement("li");
@@ -211,27 +220,192 @@ function clearSearch() {
     });
 }
 
-function sortShows() {
+async function sortShows() {
     const sortOrder = document.getElementById('sortDropdown').value;
     const shows = Array.from(document.querySelectorAll('#show_list .show'));
+
+    console.log(`Sort order selected: ${sortOrder}`);
 
     if (sortOrder === "default") {
         return; // Do nothing if the default option is selected
     }
 
-    shows.sort((a, b) => {
-        const nameA = a.querySelector('.showname').textContent.toLowerCase();
-        const nameB = b.querySelector('.showname').textContent.toLowerCase();
+    if (sortOrder === 'az' || sortOrder === 'za') {
+        shows.sort((a, b) => {
+            const nameA = a.querySelector('.showname').textContent.toLowerCase();
+            const nameB = b.querySelector('.showname').textContent.toLowerCase();
 
-        if (sortOrder === 'az') {
-            return nameA.localeCompare(nameB);
-        } else if (sortOrder === 'za') {
-            return nameB.localeCompare(nameA);
+            if (sortOrder === 'az') {
+                return nameA.localeCompare(nameB);
+            } else if (sortOrder === 'za') {
+                return nameB.localeCompare(nameA);
+            }
+        });
+
+        const showList = document.getElementById('show_list');
+        showList.innerHTML = ''; // Clear the current list
+
+        // Re-append sorted elements
+        shows.forEach(show => showList.appendChild(show));
+    } else if (sortOrder === 'airdate') {
+        await sortByAirDate(shows);
+    } else if (sortOrder === 'latest-episode') {
+        await sortByLatestEpisode(shows);
+    }
+}
+
+async function getLatestEpisodeAirDate(token, showName) {
+    // First, search for the series to get the series ID
+    let searchResults;
+    try {
+        searchResults = await searchSeries(token, showName);
+    } catch (error) {
+        console.error('Failed to search for series:', error);
+        return null;
+    }
+
+    if (!searchResults.data || searchResults.data.length === 0) {
+        console.error(`Show "${showName}" not found.`);
+        return null;
+    }
+
+    let firstResult = searchResults.data[0];
+
+    if (firstResult.primary_type === 'movie' || firstResult.type === 'movie') {
+        console.error(`"${firstResult.name}" is a movie, not a TV show.`);
+        return null;
+    }
+
+    const seriesID = firstResult.tvdb_id;
+
+    // Now get the latest episode's air date using the series ID
+    const url = `https://api4.thetvdb.com/v4/series/${seriesID}/episodes/absolute`;
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json'
+    };
+
+    try {
+        const response = await axios.get(url, { headers });
+        const episodes = response.data.data.episodes;
+
+        if (!episodes || episodes.length === 0) {
+            return null; // No episodes found
         }
+
+        // Iterate backwards through the episodes to find the most recent non-null air date
+        let latestAirDate = null;
+        for (let i = episodes.length - 1; i >= 0; i--) {
+            const episodeAirDate = episodes[i].aired;
+            if (episodeAirDate) {
+                latestAirDate = episodeAirDate;
+                break;
+            }
+        }
+
+        console.log(`Latest non-null air date for "${showName}": ${latestAirDate}`);
+
+        return latestAirDate || null;
+    } catch (error) {
+        console.error("Get latest episode air date error:", error.response ? error.response.data : error.message);
+        throw error;
+    }
+}
+
+async function sortByLatestEpisode(shows) {
+    const API_KEY = 'fefac935-f11a-4342-87fc-59e8ee37995e';
+    let token;
+
+    try {
+        token = await getAuthToken(API_KEY);
+    } catch (error) {
+        console.error('Failed to get auth token:', error);
+        return;
+    }
+
+    const showData = await Promise.all(shows.map(async (show) => {
+        const showName = show.querySelector('.showname').textContent.trim();
+        const latestAirDate = await getLatestEpisodeAirDate(token, showName);
+        return { show, latestAirDate };
+    }));
+
+    console.log('Before sorting by latest episode air date:', showData);
+
+    // Sort the shows by the latest episode air date
+    showData.sort((a, b) => {
+        if (!a.latestAirDate) return 1; // Push shows with no latest episode air date to the end
+        if (!b.latestAirDate) return -1;
+        return new Date(b.latestAirDate) - new Date(a.latestAirDate); // Sort by latest first
     });
 
+    console.log('After sorting by latest episode air date:', showData);
+
+    // Reorder the shows in the DOM
     const showList = document.getElementById('show_list');
-    shows.forEach(show => showList.appendChild(show));
+    showList.innerHTML = ''; // Clear the current list
+    showData.forEach(({ show }) => {
+        showList.appendChild(show);
+    });
+}
+
+
+async function sortByAirDate(shows) {
+    const showData = await Promise.all(shows.map(async (show) => {
+        const showName = show.querySelector('.showname').textContent.trim();
+        const airDate = await getAirDate(showName);
+        return { show, airDate };
+    }));
+
+    console.log('Before sorting:', showData);
+
+    // Sort the shows by air date
+    showData.sort((a, b) => {
+        if (!a.airDate) return 1; // Push shows with no air date to the end
+        if (!b.airDate) return -1;
+        return new Date(a.airDate) - new Date(b.airDate);
+    });
+
+    console.log('After sorting:', showData);
+
+    // Reorder the shows in the DOM
+    showData.forEach(({ show }) => {
+        show.parentNode.appendChild(show);
+    });
+}
+
+async function getAirDate(showName) {
+    const API_KEY = 'fefac935-f11a-4342-87fc-59e8ee37995e';
+    let token;
+
+    try {
+        token = await getAuthToken(API_KEY);
+    } catch (error) {
+        console.error('Failed to get auth token:', error);
+        return null;
+    }
+
+    let searchResults;
+    try {
+        searchResults = await searchSeries(token, showName);
+    } catch (error) {
+        console.error('Failed to search for series:', error);
+        return null;
+    }
+
+    if (!searchResults.data || searchResults.data.length === 0) {
+        console.error(`Show "${showName}" not found.`);
+        return null;
+    }
+
+    let firstResult = searchResults.data[0];
+
+    if (firstResult.primary_type === 'movie' || firstResult.type === 'movie') {
+        console.error(`"${firstResult.name}" is a movie, not a TV show.`);
+        return null;
+    }
+
+    console.log(`Air date for "${showName}": ${firstResult.first_air_time}`); // Log the air date
+    return firstResult.first_air_time || null;
 }
 
 /*
