@@ -249,8 +249,105 @@ async function sortShows() {
         shows.forEach(show => showList.appendChild(show));
     } else if (sortOrder === 'airdate') {
         await sortByAirDate(shows);
+    } else if (sortOrder === 'latest-episode') {
+        await sortByLatestEpisode(shows);
     }
 }
+
+async function getLatestEpisodeAirDate(token, showName) {
+    // First, search for the series to get the series ID
+    let searchResults;
+    try {
+        searchResults = await searchSeries(token, showName);
+    } catch (error) {
+        console.error('Failed to search for series:', error);
+        return null;
+    }
+
+    if (!searchResults.data || searchResults.data.length === 0) {
+        console.error(`Show "${showName}" not found.`);
+        return null;
+    }
+
+    let firstResult = searchResults.data[0];
+
+    if (firstResult.primary_type === 'movie' || firstResult.type === 'movie') {
+        console.error(`"${firstResult.name}" is a movie, not a TV show.`);
+        return null;
+    }
+
+    const seriesID = firstResult.tvdb_id;
+
+    // Now get the latest episode's air date using the series ID
+    const url = `https://api4.thetvdb.com/v4/series/${seriesID}/episodes/absolute`;
+    const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json'
+    };
+
+    try {
+        const response = await axios.get(url, { headers });
+        const episodes = response.data.data.episodes;
+
+        if (!episodes || episodes.length === 0) {
+            return null; // No episodes found
+        }
+
+        // Iterate backwards through the episodes to find the most recent non-null air date
+        let latestAirDate = null;
+        for (let i = episodes.length - 1; i >= 0; i--) {
+            const episodeAirDate = episodes[i].aired;
+            if (episodeAirDate) {
+                latestAirDate = episodeAirDate;
+                break;
+            }
+        }
+
+        console.log(`Latest non-null air date for "${showName}": ${latestAirDate}`);
+
+        return latestAirDate || null;
+    } catch (error) {
+        console.error("Get latest episode air date error:", error.response ? error.response.data : error.message);
+        throw error;
+    }
+}
+
+async function sortByLatestEpisode(shows) {
+    const API_KEY = 'fefac935-f11a-4342-87fc-59e8ee37995e';
+    let token;
+
+    try {
+        token = await getAuthToken(API_KEY);
+    } catch (error) {
+        console.error('Failed to get auth token:', error);
+        return;
+    }
+
+    const showData = await Promise.all(shows.map(async (show) => {
+        const showName = show.querySelector('.showname').textContent.trim();
+        const latestAirDate = await getLatestEpisodeAirDate(token, showName);
+        return { show, latestAirDate };
+    }));
+
+    console.log('Before sorting by latest episode air date:', showData);
+
+    // Sort the shows by the latest episode air date
+    showData.sort((a, b) => {
+        if (!a.latestAirDate) return 1; // Push shows with no latest episode air date to the end
+        if (!b.latestAirDate) return -1;
+        return new Date(b.latestAirDate) - new Date(a.latestAirDate); // Sort by latest first
+    });
+
+    console.log('After sorting by latest episode air date:', showData);
+
+    // Reorder the shows in the DOM
+    const showList = document.getElementById('show_list');
+    showList.innerHTML = ''; // Clear the current list
+    showData.forEach(({ show }) => {
+        showList.appendChild(show);
+    });
+}
+
 
 async function sortByAirDate(shows) {
     const showData = await Promise.all(shows.map(async (show) => {
