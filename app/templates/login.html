@@ -12,7 +12,7 @@
     <nav>
         <h1>Asparagus</h1>
         <div class="center">
-            <a href="/shows-ADMIN">Show List</a>
+            <a id = "showlistlink">Show List</a>
             <a href="/home">Home Page</a>
         </div>
     </nav>
@@ -138,6 +138,11 @@
             $("#signup-uname").val('');
             $("#signup-pass").val('');
             $("#verify-pass").val('');
+        })
+        $("#showlistlink").on("click", function(){
+            $.get(SCRIPT_ROOT + "/anonymous").done(function(response){
+                console.log(response)
+            })
         })
     </script>
 

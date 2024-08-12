@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="/static/styles.css">
     <script src="/static/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +11,7 @@
         <h1>Asparagus</h1>
         <div class="center">
             <a href="/login">Login</a>
-            <a href="/shows-ADMIN">Show List</a>
+            <a id = "showlistlink">Show List</a>
         </div>
     </nav>
 
@@ -89,8 +90,17 @@
         <p>Username and Password are collected to allow users to sign into their individual accounts and access their show list.</p>
 
         <h2>How We Protect Your Data</h2>
-        <p>Passwords are encypted and stored within our database that is only accessible by admin.</p>
+        <p>Passwords are encypted and stored within our database that is only accessible by administrators.</p>
     
     </div>
 
+    <script type="text/javascript">
+        var SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
+
+        $("#showlistlink").on("click", function(){
+            $.get(SCRIPT_ROOT + "/anonymous").done(function(response){
+                console.log(response)
+            })
+        })
+    </script>
 </body>

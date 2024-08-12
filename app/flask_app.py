@@ -22,6 +22,13 @@ def grant_token(ip, uname):
     except:
         pass
 
+@app.route("/anonymous")
+def anonymous():
+    try:
+        return tokens[request.remote_addr]
+    except:
+        return {"a": "b"}, 400
+
 @app.route("/shows-<id>")
 def default(id):
     for uname in tokens.values():

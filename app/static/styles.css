@@ -482,3 +482,8 @@ ul {
     color: #888;
     font-size: 20px;
 }
+
+#showlistlink{
+    text-decoration: underline;
+    cursor: pointer;
+}
