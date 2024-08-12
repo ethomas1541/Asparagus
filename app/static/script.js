@@ -73,22 +73,31 @@ async function add_show() {
         return;
     }
 
+    if (!searchResults.data || searchResults.data.length === 0) {
+        alert(`Show "${seriesName}" not found.`);
+        return;
+    }
+
     let firstResult;
     let seriesDescription;
     let seriesImage;
     let seriesEpisodes;
 
-    if (searchResults.data && searchResults.data.length > 0) {
-        firstResult = searchResults.data[0];
-        seriesDescription = firstResult.overview || "Description not available.";
-        seriesImage = firstResult.image_url ? firstResult.image_url : "static/img/sample.png";
-        seriesEpisodes = await getEpisodes(token, firstResult.tvdb_id);
-    } else {
-        firstResult = { name: seriesName };
-        seriesDescription = "No information available.";
-        seriesImage = "static/img/sample.png";
-        seriesEpisodes = "1";
+    firstResult = searchResults.data[0];
+
+    if (firstResult.primary_type === 'movie' || firstResult.type === 'movie') {
+        alert(`"${firstResult.name}" is a movie, not a TV show.`);
+        return;
     }
+
+    seriesDescription = firstResult.overview || "Description not available.";
+    seriesImage = firstResult.image_url ? firstResult.image_url : "static/img/sample.png";
+    seriesEpisodes = await getEpisodes(token, firstResult.tvdb_id);
+    
+        //firstResult = { name: seriesName };
+        //seriesDescription = "No information available.";
+        //seriesImage = "static/img/sample.png";
+        //seriesEpisodes = "1";
 
     // Create list element to hold show card
     let show_card = document.createElement("li");
