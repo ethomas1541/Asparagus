@@ -28,19 +28,27 @@ nav a{
     min-width: fit-content;
 }
 
-.signout-button {
+.button-link, .signout-button {
     background-color: rgb(14, 145, 53);
     border: none;
     color: #fff;
     text-align: center; 
-    font-size: 14px; /* Adjust font size as needed */
-    padding: 5px; /* Adjust padding as needed */
+    font-size: 14px; 
+    padding: 5px; 
     border-radius: 5%;
     cursor: pointer;
 
     min-width: fit-content;    
-    margin-left: 5%;
-    margin-bottom: 2%;
+    margin-left: 5%; 
+    margin-bottom: 2%; 
+    text-decoration: none; 
+    display: inline-block; 
+    vertical-align: middle; 
+}
+
+.button-link {
+    margin-top: 0; 
+    margin-bottom: 2%; 
 }
 
 .search-container {
@@ -484,6 +492,5 @@ ul {
 }
 
 #showlistlink{
-    text-decoration: underline;
     cursor: pointer;
 }
